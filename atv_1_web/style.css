@@ -1,0 +1,42 @@
+*{
+    font-family: Arial, Helvetica, sans-serif; /*Apliquei a mesma fonte para todos o s textos*/
+    margin: 20px;
+}
+
+body{
+    background-color: ghostwhite;
+}
+
+table, th, td {
+    border: 1px solid, white;
+    padding: 5px;
+    border-collapse: collapse;
+    color: white;
+    text-align: center;
+    margin: 0 auto;
+}
+
+th {
+    background-color: rgb(219, 41, 41);
+    border-radius: 5px;
+}
+td {
+    background-color: rgb(159, 223, 75);
+    border-radius: 10px;
+}
+
+h1, h2, h4, h5, h6{
+    font-size: 16px;
+    padding: 10px;
+}
+
+img{
+    margin: auto;
+    display: block;
+    text-align: center;
+}
+
+#secao1, #secao2, #secao3, #secao4, #secao5{
+    padding: 20px;
+    border-bottom: 1px solid #ccc;
+}
