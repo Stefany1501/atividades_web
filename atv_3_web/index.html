@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Clarice Lispector</title>
+  <style>
+    /* Reset básico */
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: Arial, sans-serif;
+      line-height: 1.6;
+      background-color: white;
+      color: black;
+      transition: background-color 0.3s, color 0.3s;
+    }
+
+    body.dark-mode {
+      background-color: #121212;
+      color: #e0e0e0;
+    }
+
+    header {
+      padding: 60px;
+      text-align: center;
+      background-color: #bc1a8b;
+      color: white;
+    }
+
+    nav {
+      background-color: #333;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+    }
+
+    nav .nav-links {
+      display: flex;
+      flex-direction: row;
+    }
+
+    nav a {
+      color: white;
+      padding: 14px 20px;
+      text-decoration: none;
+      text-align: center;
+    }
+
+    nav a:hover {
+      background-color: #ddd;
+      color: black;
+    }
+
+    .menu-toggle {
+      display: none;
+      flex-direction: column;
+      padding: 14px;
+      cursor: pointer;
+    }
+
+    .menu-toggle span {
+      background-color: white;
+      height: 3px;
+      width: 25px;
+      margin: 4px 0;
+    }
+
+    /* Botão tema */
+    .theme-toggle {
+      margin-right: 16px;
+      background-color: transparent;
+      border: 1px solid white;
+      color: white;
+      padding: 8px 12px;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 14px;
+    }
+
+    .theme-toggle:hover {
+      background-color: white;
+      color: black;
+    }
+
+    main {
+      display: flex;
+      flex-wrap: wrap;
+    }
+
+    aside {
+      flex: 30%;
+      background-color: #f1f1f1;
+      padding: 20px;
+    }
+
+    body.dark-mode aside {
+      background-color: #222;
+    }
+
+    section {
+      flex: 70%;
+      background-color: white;
+      padding: 20px;
+    }
+
+    body.dark-mode section {
+      background-color: #1a1a1a;
+    }
+
+    footer {
+      background-color: #ddd;
+      padding: 12px;
+      text-align: center;
+    }
+
+    body.dark-mode footer {
+      background-color: #222;
+      color: #aaa;
+    }
+
+    img {
+      display: block;
+      max-width: 100%;
+      height: auto;
+      margin: 10px auto;
+    }
+
+    ul {
+      margin: 10px 0 20px 20px;
+      padding-left: 20px;
+      list-style: none;
+    }
+
+    ul li {
+      position: relative;
+      padding-left: 24px;
+      margin-bottom: 8px;
+    }
+
+    ul li::before {
+      content: "✦";
+      position: absolute;
+      left: 0;
+      color: #bc1a8b;
+    }
+
+    body.dark-mode ul li::before {
+      color: #f48fb1;
+    }
+
+    @media screen and (max-width: 700px) {
+      main, nav .nav-links {
+        flex-direction: column;
+      }
+
+      .nav-links {
+        display: none;
+      }
+
+      .nav-links.show {
+        display: flex;
+      }
+
+      .menu-toggle {
+        display: flex;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1>Clarice Lispector</h1>
+    <p>Biografia de uma das maiores <strong>escritoras e jornalistas</strong> brasileiras.</p>
+  </header>
+
+  <nav>
+    <div class="menu-toggle" onclick="toggleMenu()" title="Abrir menu">
+      <span></span>
+      <span></span>
+      <span></span>
+    </div>
+
+    <div class="nav-links">
+      <a href="#sobre">Sobre</a>
+      <a href="#juventude">Juventude</a>
+      <a href="#carreira">Carreira</a>
+      <a href="#obras">Obras</a>
+    </div>
+
+    <!-- Botão de alternância de tema -->
+    <button class="theme-toggle" onclick="toggleTheme()">Alternar tema</button>
+  </nav>
+
+  <main>
+    <aside>
+      <h2 id="sobre">Sobre Clarice Lispector</h2>
+      <h5>Foto:</h5>
+      <img src="https://s.ebiografia.com/assets/img/authors/cl/ar/clarice-lispector-2-l.jpg?auto_optimize=low&width=255" alt="Clarice Lispector">
+      <p style="text-align: center;">1920 - 1977</p>
+
+      <br>
+
+      <p>Clarice Lispector foi uma das mais importantes escritoras da literatura brasileira. Nascida na Ucrânia, imigrou ainda bebê para o Brasil. É conhecida por seu estilo introspectivo e inovador, além de sua contribuição para o jornalismo e literatura infantil.</p>
+
+      <br>
+
+      <img src="https://iclnoticias.com.br/wp-content/uploads/2024/02/clarice-lispector.jpg" alt="Clarice Lispector em entrevista">
+      <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/74/Clarice_Lispector_por_Maureen_Bisilliat_em_agosto_de_1969._Acervo_IMS.jpg/500px-Clarice_Lispector_por_Maureen_Bisilliat_em_agosto_de_1969._Acervo_IMS.jpg" alt="Clarice Lispector por Maureen Bisilliat">
+    </aside>
+
+    <section>
+      <h2 id="juventude">Juventude</h2>
+      <p>Clarice nasceu em 10 de dezembro de 1920, em Chechelnyk, Ucrânia, com o nome Chaya Pinkhasovna Lispector. Emigrou para o Brasil em 1922. Cresceu em Recife e logo demonstrou interesse pela leitura e escrita. Estudou Direito no Rio de Janeiro, onde sua paixão pela literatura floresceu.</p>
+      <img src="https://s.ebiografia.com/img/cl/ar/clarice_lispector_casa_no_recife.jpg?auto_optimize=low&width=655" alt="Casa de infância de Clarice">
+      <p style="text-align: center;">Casa onde Clarice passou a infância - Recife, PE</p>
+
+      <h2 id="carreira">Carreira</h2>
+      <p>Clarice estreou com “Perto do Coração Selvagem” (1943). Viveu no exterior por conta da carreira diplomática do marido. Escreveu romances, contos, crônicas e literatura infantil. Atuou como jornalista em diversos veículos, como <em>A Noite</em>, <em>Jornal do Brasil</em> e <em>Correio da Manhã</em>.</p>
+      <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/03/Jornal_A_Noite%2C_morte_de_Carmen_Miranda.jpg/500px-Jornal_A_Noite%2C_morte_de_Carmen_Miranda.jpg" alt="Jornal A Noite">
+      <p style="text-align: center;">Manchete do jornal <strong>A Noite</strong>, onde Clarice trabalhou</p>
+
+      <h2 id="obras">Obras</h2>
+      <h5>Entre suas principais obras estão:</h5>
+
+      <p><strong>Romances</strong></p>
+      <ul>
+        <li>Perto do Coração Selvagem (1943)</li>
+        <li>O Lustre (1946)</li>
+        <li>A Cidade Sitiada (1949)</li>
+        <li>A Maçã no Escuro (1961)</li>
+        <li>A Paixão Segundo G.H. (1964)</li>
+        <li>Uma Aprendizagem ou o Livro dos Prazeres (1969)</li>
+        <li>A Hora da Estrela (1977)</li>
+      </ul>
+
+      <p><strong>Contos</strong></p>
+      <ul>
+        <li>Laços de Família (1960)</li>
+        <li>A Legião Estrangeira (1964)</li>
+        <li>Felicidade Clandestina (1971)</li>
+        <li>Onde Estivestes de Noite (1974)</li>
+      </ul>
+
+      <p><strong>Literatura Infantil</strong></p>
+      <ul>
+        <li>O Mistério do Coelho Pensante (1967)</li>
+        <li>A Mulher Que Matou os Peixes (1968)</li>
+      </ul>
+    </section>
+  </main>
+
+  <footer>
+    <p>&copy; 2025. Todos os direitos reservados.</p>
+  </footer>
+</body>
+
+<script>
+    // Alternar menu sanduíche
+    function toggleMenu() {
+      const links = document.querySelector('.nav-links');
+      links.classList.toggle('show');
+    }
+
+    // Alternar modo escuro
+    function toggleTheme() {
+      document.body.classList.toggle('dark-mode');
+    }
+  </script>
+</html>
