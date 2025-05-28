@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Questão 4</title>
+
+    <style>
+
+        main {
+            width: 400px;
+        }
+
+        main > p {
+            margin-top: 40px;
+        }
+
+        #notification-card {
+            box-sizing: border-box;
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            width: 250px;
+            border-radius: 5px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+            padding: 10px;
+            display: flex;
+            justify-content: column;
+        }
+
+    </style>
+</head>
+<body>  
+    <main>
+        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Mollitia, dolorem distinctio? Dolore quidem distinctio cupiditate quo recusandae nostrum inventore, nam fuga soluta ullam quaerat minima quam, harum reiciendis molestiae temporibus.</p><p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Mollitia, dolorem distinctio? Dolore quidem distinctio cupiditate quo recusandae nostrum inventore, nam fuga soluta ullam quaerat minima quam, harum reiciendis molestiae temporibus.</p><p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Mollitia, dolorem distinctio? Dolore quidem distinctio cupiditate quo recusandae nostrum inventore, nam fuga soluta ullam quaerat minima quam, harum reiciendis molestiae temporibus.</p><p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Mollitia, dolorem distinctio? Dolore quidem distinctio cupiditate quo recusandae nostrum inventore, nam fuga soluta ullam quaerat minima quam, harum reiciendis molestiae temporibus.</p><p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Mollitia, dolorem distinctio? Dolore quidem distinctio cupiditate quo recusandae nostrum inventore, nam fuga soluta ullam quaerat minima quam, harum reiciendis molestiae temporibus.</p><p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Mollitia, dolorem distinctio? Dolore quidem distinctio cupiditate quo recusandae nostrum inventore, nam fuga soluta ullam quaerat minima quam, harum reiciendis molestiae temporibus.</p><p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Mollitia, dolorem distinctio? Dolore quidem distinctio cupiditate quo recusandae nostrum inventore, nam fuga soluta ullam quaerat minima quam, harum reiciendis molestiae temporibus.</p><p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Mollitia, dolorem distinctio? Dolore quidem distinctio cupiditate quo recusandae nostrum inventore, nam fuga soluta ullam quaerat minima quam, harum reiciendis molestiae temporibus.</p><p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Mollitia, dolorem distinctio? Dolore quidem distinctio cupiditate quo recusandae nostrum inventore, nam fuga soluta ullam quaerat minima quam, harum reiciendis molestiae temporibus.</p>  
+
+    </main>
+
+    <div id="notification-card">        
+        <div class="card-content">
+            <h3>Novidade!</h3>
+            <p>Confira nossos novos produtos.</p>
+        </div>
+
+        <div class="card-header">
+            <button onclick="closebtn()">X</button>
+        </div>
+    </div>
+</body>
+    <!--questao 5-->
+    <script>
+        function closebtn() {
+            let card = document.getElementById('notification-card');
+            card.style.display = 'none';
+        }
+    </script>
+
+</html>

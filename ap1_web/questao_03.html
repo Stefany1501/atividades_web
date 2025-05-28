@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Questão 3</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: #f0f8ff;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+        }
+
+        figure {
+            text-align: center;
+        }
+
+        img {
+            width: 300px;
+            height: 300px;
+        }
+
+        .buttons {
+            display: flex;
+            gap: 15px;
+        }
+
+        button {
+            padding: 10px 20px;
+            font-size: 25px;
+            cursor: pointer;
+            background-color: #4caf50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+
+<body>
+
+    <figure>
+        <img id="img"
+            src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/1.svg"
+            alt="Pokémon atual" />
+    </figure>
+
+    <div class="buttons">
+        <button onclick="voltar()" id="btnVoltar">Voltar -1</button>
+        <button onclick="adiantar()" id="btnAdiantar">Adiantar +1</button>
+    </div>
+
+    <!--parte js-->
+    <script>
+        let currentId = 1;
+
+        function updateImage() {
+            const img = document.getElementById("img");
+            img.src = `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/${currentId}.svg`;
+
+        }
+
+        function voltar() {
+            if (currentId > 1) {
+                currentId--;
+                updateImage();
+            }
+        }
+
+        function adiantar() {
+            if (currentId < 100) {
+                currentId++;
+                updateImage();
+            }
+        }
+
+        updateImage();
+    </script>
+</body>
+
+</html>
