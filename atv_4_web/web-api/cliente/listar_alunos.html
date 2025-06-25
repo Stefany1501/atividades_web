@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+  <meta charset="UTF-8" />
+  <title>Gerenciar Alunos</title>
+  <style>
+    table,
+    th,
+    td {
+      border: 1px solid black;
+      border-collapse: collapse;
+      padding: 8px;
+    }
+  </style>
+</head>
+
+<body>
+  <h1>Lista de Alunos</h1>
+  <div id="table-container"></div>
+  <p id="media-ira"></p>
+
+  <h2 id="form-title">Cadastrar Novo Aluno</h2>
+  <form id="aluno-form">
+    <input type="hidden" id="aluno-id" />
+    <label>Nome: <input type="text" id="nome" required /></label><br />
+    <label>Curso: <input type="text" id="curso" required /></label><br />
+    <label>IRA: <input type="number" id="ira" step="0.1" required /></label><br />
+    <button type="submit">Salvar</button>
+  </form>
+
+  <script>
+    const apiUrl = "http://localhost:3000/alunos";
+    const tableContainer = document.getElementById("table-container");
+    const mediaText = document.getElementById("media-ira");
+
+    const form = document.getElementById("aluno-form");
+    const alunoIdInput = document.getElementById("aluno-id");
+    const nomeInput = document.getElementById("nome");
+    const cursoInput = document.getElementById("curso");
+    const iraInput = document.getElementById("ira");
+    const formTitle = document.getElementById("form-title");
+
+    let alunos = [];
+
+    function carregarAlunos() {
+      fetch(apiUrl)
+        .then((res) => res.json())
+        .then((data) => {
+          alunos = data;
+          exibirTabela();
+        });
+    }
+
+    function exibirTabela() {
+      tableContainer.innerHTML = "";
+      const table = document.createElement("table");
+      const header = table.insertRow();
+      ["ID", "Nome", "Curso", "IRA", "Ações"].forEach((txt) => {
+        const th = document.createElement("th");
+        th.textContent = txt;
+        header.appendChild(th);
+      });
+
+      let somaIRA = 0;
+
+      alunos.forEach((aluno) => {
+        const row = table.insertRow();
+        row.insertCell().textContent = aluno.id;
+        row.insertCell().textContent = aluno.nome;
+        row.insertCell().textContent = aluno.curso;
+        row.insertCell().textContent = aluno.ira.toFixed(2);
+
+        const acoes = row.insertCell();
+        const btnEditar = document.createElement("button");
+        btnEditar.textContent = "Editar";
+        btnEditar.onclick = () => preencherFormulario(aluno);
+        acoes.appendChild(btnEditar);
+
+        const btnRemover = document.createElement("button");
+        btnRemover.textContent = "Excluir";
+        btnRemover.onclick = () => removerAluno(aluno.id);
+        acoes.appendChild(btnRemover);
+
+        somaIRA += aluno.ira;
+      });
+
+      tableContainer.appendChild(table);
+      mediaText.textContent =
+        "Média dos IRAs: " + (somaIRA / alunos.length).toFixed(2);
+    }
+
+    function preencherFormulario(aluno) {
+      alunoIdInput.value = aluno.id;
+      nomeInput.value = aluno.nome;
+      cursoInput.value = aluno.curso;
+      iraInput.value = aluno.ira;
+      formTitle.textContent = "Editar Aluno";
+    }
+
+    function limparFormulario() {
+      alunoIdInput.value = "";
+      nomeInput.value = "";
+      cursoInput.value = "";
+      iraInput.value = "";
+      formTitle.textContent = "Cadastrar Novo Aluno";
+    }
+
+    form.onsubmit = function (e) {
+      e.preventDefault();
+      const aluno = {
+        nome: nomeInput.value,
+        curso: cursoInput.value,
+        ira: parseFloat(iraInput.value),
+      };
+      const id = alunoIdInput.value;
+      if (id) {
+        // Atualizar
+        fetch(`${apiUrl}/${id}`, {
+          method: "PUT",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(aluno),
+        }).then(() => {
+          carregarAlunos();
+          limparFormulario();
+        });
+      } else {
+        // Criar
+        fetch(apiUrl, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(aluno),
+        }).then(() => {
+          carregarAlunos();
+          limparFormulario();
+        });
+      }
+    };
+
+    function removerAluno(id) {
+      if (!confirm("Tem certeza que deseja excluir este aluno?")) return;
+      fetch(`${apiUrl}/${id}`, { method: "DELETE" }).then(() => carregarAlunos());
+    }
+
+    carregarAlunos();
+  </script>
+</body>
+
+</html>
