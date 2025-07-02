@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <title>COVID-19 - Estados Brasileiros</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        th,
+        td {
+            border: 1px solid #444;
+            padding: 8px;
+            text-align: center;
+        }
+
+        th {
+            background-color: #f0f0f0;
+        }
+
+        tfoot {
+            background-color: #e0e0e0;
+            font-weight: bold;
+        }
+
+        .acima-media {
+            background-color: #ffdddd;
+        }
+
+        .rel-max {
+            background-color: #ccffcc;
+        }
+
+        .rel-min {
+            background-color: #ccccff;
+        }
+    </style>
+</head>
+
+<body>
+    <h1 style="text-align: center;">COVID-19 - Estados Brasileiros</h1>
+    <table id="tabela">
+        <thead>
+            <tr>
+                <th>Nome do Estado</th>
+                <th>UF</th>
+                <th>Casos</th>
+                <th>Suspeitos</th>
+                <th>Mortes</th>
+            </tr>
+        </thead>
+        <tbody></tbody>
+        <tfoot></tfoot>
+    </table>
+
+    <script>
+        async function buscarDados() {
+            const url = 'https://covid19-brazil-api.now.sh/api/report/v1';
+            const resposta = await fetch(url);
+            const json = await resposta.json();
+            return json.data;
+        }
+
+        function calcularMedias(estados) {
+            const total = estados.length;
+            let somaCasos = 0, somaSuspeitos = 0, somaMortes = 0;
+
+            estados.forEach(estado => {
+                somaCasos += estado.cases;
+                somaSuspeitos += estado.suspects;
+                somaMortes += estado.deaths;
+            });
+
+            return {
+                casos: somaCasos / total,
+                suspeitos: somaSuspeitos / total,
+                mortes: somaMortes / total
+            };
+        }
+
+        function calcularRelacoes(estados) {
+            let max = -Infinity, min = Infinity;
+            let estadoMax = '', estadoMin = '';
+
+            estados.forEach(estado => {
+                const relacao = estado.deaths > 0 ? estado.cases / estado.deaths : 0;
+                if (relacao > max) {
+                    max = relacao;
+                    estadoMax = estado.uf;
+                }
+                if (relacao < min) {
+                    min = relacao;
+                    estadoMin = estado.uf;
+                }
+            });
+
+            return { maxUF: estadoMax, minUF: estadoMin };
+        }
+
+        function preencherTabela(estados, medias, relacoes) {
+            const tbody = document.querySelector('#tabela tbody');
+            const tfoot = document.querySelector('#tabela tfoot');
+
+            estados.forEach(estado => {
+                const tr = document.createElement('tr');
+
+                if (estado.deaths > medias.mortes) {
+                    tr.classList.add('acima-media');
+                }
+
+                if (estado.uf === relacoes.maxUF) {
+                    tr.classList.add('rel-max');
+                }
+
+                if (estado.uf === relacoes.minUF) {
+                    tr.classList.add('rel-min');
+                }
+
+                tr.innerHTML = `
+          <td>${estado.state}</td>
+          <td>${estado.uf}</td>
+          <td>${estado.cases}</td>
+          <td>${estado.suspects}</td>
+          <td>${estado.deaths}</td>
+        `;
+
+                tbody.appendChild(tr);
+            });
+
+            const linhaMedia = document.createElement('tr');
+            linhaMedia.innerHTML = `
+        <td colspan="2">MÉDIAS</td>
+        <td>${medias.casos.toFixed(2)}</td>
+        <td>${medias.suspeitos.toFixed(2)}</td>
+        <td>${medias.mortes.toFixed(2)}</td>
+      `;
+            tfoot.appendChild(linhaMedia);
+        }
+
+        async function main() {
+            const estados = await buscarDados();
+            const medias = calcularMedias(estados);
+            const relacoes = calcularRelacoes(estados);
+            preencherTabela(estados, medias, relacoes);
+        }
+
+        main();
+    </script>
+</body>
+
+</html>

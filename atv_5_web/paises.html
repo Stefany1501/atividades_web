@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <title>COVID-19 - Países</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        th,
+        td {
+            border: 1px solid #444;
+            padding: 8px;
+            text-align: center;
+        }
+
+        th {
+            background-color: #f0f0f0;
+        }
+
+        .brasil {
+            background-color: #ffff99;
+            font-weight: bold;
+        }
+    </style>
+</head>
+
+<body>
+    <h1 style="text-align: center;">COVID-19 - Países</h1>
+    <table id="tabela-paises">
+        <thead>
+            <tr>
+                <th>País</th>
+                <th>Casos</th>
+                <th>Mortes</th>
+                <th>Recuperados</th>
+            </tr>
+        </thead>
+        <tbody></tbody>
+    </table>
+
+    <script>
+        async function buscarPaises() {
+            const url = 'https://covid19-brazil-api.now.sh/api/report/v1/countries';
+            const resposta = await fetch(url);
+            const json = await resposta.json();
+            return json.data;
+        }
+
+        function preencherTabelaPaises(paises) {
+            const tbody = document.querySelector('#tabela-paises tbody');
+
+            paises.forEach(pais => {
+                const tr = document.createElement('tr');
+
+                if (pais.country.toLowerCase() === 'brazil') {
+                    tr.classList.add('brasil');
+                }
+
+                tr.innerHTML = `
+          <td>${pais.country}</td>
+          <td>${pais.cases}</td>
+          <td>${pais.deaths}</td>
+          <td>${pais.recovered}</td>
+        `;
+
+                tbody.appendChild(tr);
+            });
+        }
+
+        async function main() {
+            const paises = await buscarPaises();
+            preencherTabelaPaises(paises);
+        }
+
+        main();
+    </script>
+</body>
+
+</html>
